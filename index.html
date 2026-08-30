@@ -1,98 +1,59 @@
 <!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Verificación de Credenciales | Programa Puentes</title>
-  <meta name="description" content="Verificación institucional de certificados digitales del Programa Puentes.">
-  <style>
-    :root{--cyan:#00a6bd;--magenta:#d5006d;--ink:#333;--muted:#6b7280;--line:#dfe5e8;--bg:#f7fafb}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
-    header{background:#fff;border-bottom:1px solid var(--line)}
-    .top{max-width:1080px;margin:auto;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .mark{width:58px;height:42px;position:relative}
-    .mark:before{content:"";position:absolute;left:10px;top:0;width:38px;height:20px;border:6px solid var(--magenta);border-bottom:0;border-radius:28px 28px 0 0}
-    .mark:after{content:"≋";position:absolute;left:1px;top:13px;font-size:52px;line-height:30px;font-weight:bold;color:var(--cyan);transform:scaleX(1.2)}
-    .brand strong{display:block;font-size:26px;letter-spacing:.5px}
-    .brand span{font-size:11px;font-weight:bold;line-height:1.2}
-    .navbtn{background:var(--cyan);color:white;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:7px}
-    main{max-width:920px;margin:48px auto;padding:0 24px 60px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 34px rgba(0,0,0,.06);overflow:hidden}
-    .hero{padding:36px 42px 26px;text-align:center;border-bottom:1px solid var(--line)}
-    .badge{display:inline-block;color:#087f55;background:#e9f8f1;border:1px solid #b8ead5;border-radius:999px;padding:8px 15px;font-weight:800;font-size:14px}
-    h1{margin:18px 0 4px;font-size:34px;color:#087f55}
-    .subtitle{color:var(--muted);font-size:16px}
-    .content{padding:34px 42px}
-    .name{font-size:31px;font-weight:800;color:var(--cyan);margin:0 0 8px}
-    .type{font-size:18px;font-weight:700;margin-bottom:28px}
-    dl{display:grid;grid-template-columns:220px 1fr;gap:0;margin:0;border-top:1px solid var(--line)}
-    dt,dd{margin:0;padding:15px 0;border-bottom:1px solid var(--line)}
-    dt{font-weight:700;color:#4b5563}
-    dd{padding-left:20px}
-    .technical{margin-top:30px;padding:24px;background:#f8fbfc;border-left:4px solid var(--cyan);border-radius:8px}
-    .technical h2{margin:0 0 14px;font-size:19px}
-    code{font-size:12px;word-break:break-all}
-    .note{margin-top:28px;font-size:14px;line-height:1.6;color:#525b65}
-    footer{text-align:center;padding:26px;font-size:13px;color:#66717b}
-    .gov{font-weight:800;color:var(--cyan);font-size:18px;margin-top:8px}
-    @media(max-width:650px){.top{padding:18px}.brand strong{font-size:20px}.navbtn{padding:10px 13px}.hero,.content{padding:28px 22px}dl{grid-template-columns:1fr}dd{padding-left:0;padding-top:0}.name{font-size:25px}}
-  </style>
-</head>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Credenciales Puentes</title>
+<style>
+:root{--cyan:#00a9be;--mag:#e5007d;--ink:#263238;--muted:#68757d;--line:#dfe7ea;--soft:#f7fafb;--ok:#0b7a53;--okbg:#eaf8f2}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+header{border-bottom:1px solid var(--line)} .head{max-width:1100px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
+.head img{height:70px;width:auto} .gov{font-size:13px;font-weight:700;text-align:right} .accent{height:5px;background:linear-gradient(90deg,var(--cyan) 0 64%,var(--mag) 64%)}
+main{max-width:960px;margin:auto;padding:46px 24px 60px} .hero{text-align:center} h1{font-size:38px;margin:0 0 8px} .hero p{color:var(--muted);font-size:17px}
+.tabs{display:flex;gap:10px;justify-content:center;margin:28px 0} .tab{padding:12px 18px;border:1px solid var(--line);background:#fff;border-radius:8px;font-weight:700;cursor:pointer} .tab.active{background:var(--cyan);color:#fff;border-color:var(--cyan)}
+.panel{max-width:720px;margin:auto;border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 10px 30px rgba(20,45,55,.07)} .hidden{display:none}
+label{display:block;font-weight:700;margin:16px 0 7px} input{width:100%;padding:13px;border:1px solid #ccd7db;border-radius:8px;font-size:16px}
+.primary{width:100%;margin-top:18px;padding:13px;border:0;border-radius:8px;background:var(--cyan);color:#fff;font-weight:800;font-size:16px;cursor:pointer}
+.msg{display:none;margin-top:16px;padding:12px;border-radius:8px} .msg.err{display:block;background:#fff1f4;color:#9b2444} .result{display:none;margin-top:24px;border-top:1px solid var(--line);padding-top:24px} .result.show{display:block}
+.status{display:inline-block;background:var(--okbg);color:var(--ok);padding:7px 12px;border-radius:999px;font-weight:800;font-size:13px} .name{font-size:27px;font-weight:800;color:var(--cyan);margin:16px 0 4px}
+dl{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--line)} dt,dd{margin:0;padding:11px 0;border-bottom:1px solid var(--line)} dt{font-weight:700;color:#536169} dd{padding-left:14px}
+.tech{margin-top:20px;background:var(--soft);border-left:4px solid var(--cyan);padding:16px;border-radius:8px} code{font-size:12px;word-break:break-all}
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:650px){.head img{height:56px} .gov{font-size:11px} h1{font-size:30px} dl{grid-template-columns:1fr} dd{padding-left:0;padding-top:0}}
+</style></head>
 <body>
-<header>
-  <div class="top">
-    <div class="brand">
-      <div class="mark" aria-hidden="true"></div>
-      <div><strong>PUENTES</strong><span>PROGRAMA DE INTEGRACIÓN<br>TERRITORIAL UNIVERSITARIA</span></div>
-    </div>
-    <a class="navbtn" href="#credencial">Credenciales</a>
-  </div>
-</header>
+<header><div class="head"><img src="logo-puentes.png" alt="Programa Puentes"><div class="gov">PROVINCIA DE BUENOS AIRES<br>Programa Puentes</div></div><div class="accent"></div></header>
+<main>
+<div class="hero"><h1>Credenciales Puentes</h1><p>Accedé, descargá y verificá tus certificados digitales.</p></div>
+<div class="tabs"><button class="tab active" id="a">Mis credenciales</button><button class="tab" id="v">Verificar credencial</button></div>
 
-<main id="credencial">
-  <section class="card">
-    <div class="hero">
-      <div class="badge">✓ VERIFICACIÓN INSTITUCIONAL</div>
-      <h1>Certificado verificado</h1>
-      <div class="subtitle">Certificado digital verificable · Programa Puentes</div>
-    </div>
-    <div class="content">
-      <p class="name">Evangelina Pérez Sobrero</p>
-      <div class="type">Certificado de Participación</div>
+<section class="panel" id="pa">
+<h2>Ingresar a mis credenciales</h2><p>Usá el correo declarado y el código personal recibido por mail.</p>
+<label>Correo electrónico</label><input id="email" type="email" placeholder="nombre@institucion.edu.ar">
+<label>Código de acceso</label><input id="code" type="text" placeholder="UTF26-XXXXXX">
+<button class="primary" id="login">Ingresar</button><div id="m1" class="msg"></div><div id="r1" class="result"></div>
+</section>
 
-      <dl>
-        <dt>Identificador</dt><dd>PUENTES-UTF26-M1-EPS-001</dd>
-        <dt>Actividad</dt><dd>Jornada “Universidad, Territorio y Futuro: Microcredenciales para una nueva agenda universitaria”</dd>
-        <dt>Participación</dt><dd>Mesa N.º 1 — Microcredenciales e Innovación Académica</dd>
-        <dt>Descripción</dt><dd>El sentido académico de las microcredenciales en la universidad pública</dd>
-        <dt>Fecha</dt><dd>26 de agosto de 2026</dd>
-        <dt>Lugar</dt><dd>Universidad Nacional Arturo Jauretche (UNAJ)</dd>
-        <dt>Emisor</dt><dd>Programa Puentes · Provincia de Buenos Aires</dd>
-        <dt>Estado</dt><dd><strong>Válido</strong></dd>
-      </dl>
-
-      <div class="technical">
-        <h2>Verificación criptográfica</h2>
-        <p><strong>Tecnología:</strong> OpenTimestamps · Bitcoin</p>
-        <p><strong>Estado:</strong> prueba anclada y confirmada</p>
-        <p><strong>SHA-256:</strong><br><code>INCORPORAR_HASH_DEFINITIVO_CONFIRMADO</code></p>
-      </div>
-
-      <p class="note">
-        La validez institucional del certificado es otorgada por la institución emisora.
-        La tecnología blockchain aporta un mecanismo adicional para comprobar la integridad,
-        trazabilidad y existencia de la prueba criptográfica asociada al documento.
-        El certificado completo y los datos personales no se almacenan en la blockchain.
-      </p>
-    </div>
-  </section>
+<section class="panel hidden" id="pv">
+<h2>Verificar credencial</h2><p>Ingresá el ID o accedé desde el QR del certificado.</p>
+<label>ID de credencial</label><input id="cid" type="text" placeholder="PUENTES-UTF26-M1-EPS-001">
+<button class="primary" id="verify">Verificar</button><div id="m2" class="msg"></div><div id="r2" class="result"></div>
+</section>
 </main>
+<footer>Programa Puentes · Provincia de Buenos Aires</footer>
 
-<footer>
-  Programa Puentes · Provincia de Buenos Aires
-  <div class="gov">GOBIERNO DE LA PROVINCIA DE BUENOS AIRES</div>
-</footer>
-</body>
-</html>
+<script>
+const URLBASE="https://sawigpjsxkqkfffalfyp.supabase.co", KEY="sb_publishable_qiFMVg1d9-rHCYyCtoa57Q_hRlDuYDE";
+async function rpc(fn,body){let r=await fetch(`${URLBASE}/rest/v1/rpc/${fn}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':`Bearer ${KEY}`},body:JSON.stringify(body)}); if(!r.ok) throw new Error(await r.text()); return await r.json();}
+function e(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function fdate(v){if(!v)return'';let p=v.split('-');return `${p[2]}/${p[1]}/${p[0]}`;}
+function card(c,priv){return `<span class="status">✓ CERTIFICADO VERIFICADO</span><div class="name">${e(c.nombre_completo)}</div><b>${e(c.tipo_certificado)}</b><dl>
+<dt>ID</dt><dd>${e(c.id_certificado)}</dd><dt>Actividad</dt><dd>${e(c.jornada)}</dd><dt>Participación</dt><dd>${e(c.mesa||'')}</dd><dt>Fecha</dt><dd>${fdate(c.fecha_emision)}</dd><dt>Emisor</dt><dd>${e(c.institucion)}</dd><dt>Estado</dt><dd>${e(c.estado)}</dd></dl>
+<div class="tech"><b>Verificación criptográfica</b><br><br>${e(c.sistema_timestamp)} · ${e(c.blockchain)}<br><b>SHA-256</b><br><code>${e(c.sha256)}</code></div>
+${priv?'<p><button disabled>Descargar certificado — se habilita en el próximo paso</button></p>':''}`;}
+function msg(el,t){el.className='msg err';el.textContent=t}
+a.onclick=()=>{a.classList.add('active');v.classList.remove('active');pa.classList.remove('hidden');pv.classList.add('hidden')}; 
+v.onclick=()=>{v.classList.add('active');a.classList.remove('active');pv.classList.remove('hidden');pa.classList.add('hidden')};
+login.onclick=async()=>{r1.classList.remove('show');try{let x=await rpc('buscar_credencial',{p_email:email.value.trim(),p_codigo:code.value.trim()});if(!x.length)return msg(m1,'Correo o código incorrectos.');m1.className='msg';r1.innerHTML=card(x[0],true);r1.classList.add('show')}catch(err){msg(m1,'No se pudo consultar la credencial.');console.error(err)}};
+async function check(id){r2.classList.remove('show');try{let x=await rpc('verificar_credencial',{p_id_certificado:id});if(!x.length)return msg(m2,'No se encontró esa credencial.');m2.className='msg';r2.innerHTML=card(x[0],false);r2.classList.add('show')}catch(err){msg(m2,'No se pudo verificar la credencial.');console.error(err)}}
+verify.onclick=()=>{if(cid.value.trim())check(cid.value.trim())};
+let q=new URLSearchParams(location.search).get('id'); if(q){v.click();cid.value=q;check(q)}
+</script></body></html>
