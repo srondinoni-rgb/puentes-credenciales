@@ -1,59 +1,102 @@
 <!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Credenciales Puentes</title>
 <style>
-:root{--cyan:#00a9be;--mag:#e5007d;--ink:#263238;--muted:#68757d;--line:#dfe7ea;--soft:#f7fafb;--ok:#0b7a53;--okbg:#eaf8f2}
-*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
-header{border-bottom:1px solid var(--line)} .head{max-width:1100px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
-.head img{height:70px;width:auto} .gov{font-size:13px;font-weight:700;text-align:right} .accent{height:5px;background:linear-gradient(90deg,var(--cyan) 0 64%,var(--mag) 64%)}
-main{max-width:960px;margin:auto;padding:46px 24px 60px} .hero{text-align:center} h1{font-size:38px;margin:0 0 8px} .hero p{color:var(--muted);font-size:17px}
-.tabs{display:flex;gap:10px;justify-content:center;margin:28px 0} .tab{padding:12px 18px;border:1px solid var(--line);background:#fff;border-radius:8px;font-weight:700;cursor:pointer} .tab.active{background:var(--cyan);color:#fff;border-color:var(--cyan)}
-.panel{max-width:720px;margin:auto;border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 10px 30px rgba(20,45,55,.07)} .hidden{display:none}
-label{display:block;font-weight:700;margin:16px 0 7px} input{width:100%;padding:13px;border:1px solid #ccd7db;border-radius:8px;font-size:16px}
-.primary{width:100%;margin-top:18px;padding:13px;border:0;border-radius:8px;background:var(--cyan);color:#fff;font-weight:800;font-size:16px;cursor:pointer}
-.msg{display:none;margin-top:16px;padding:12px;border-radius:8px} .msg.err{display:block;background:#fff1f4;color:#9b2444} .result{display:none;margin-top:24px;border-top:1px solid var(--line);padding-top:24px} .result.show{display:block}
-.status{display:inline-block;background:var(--okbg);color:var(--ok);padding:7px 12px;border-radius:999px;font-weight:800;font-size:13px} .name{font-size:27px;font-weight:800;color:var(--cyan);margin:16px 0 4px}
-dl{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--line)} dt,dd{margin:0;padding:11px 0;border-bottom:1px solid var(--line)} dt{font-weight:700;color:#536169} dd{padding-left:14px}
-.tech{margin-top:20px;background:var(--soft);border-left:4px solid var(--cyan);padding:16px;border-radius:8px} code{font-size:12px;word-break:break-all}
+:root{--c:#08a9bd;--m:#ed007f;--ink:#263238;--muted:#66737a;--line:#dce5e8;--soft:#f7fafb;--ok:#0a7a52;--okbg:#eaf8f2;--err:#9b2444;--errbg:#fff1f4}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+header{border-bottom:1px solid var(--line)}.head{max-width:1120px;margin:auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.head img{height:78px;width:auto;max-width:650px}.prov{border-left:1px solid #ccd6da;padding-left:28px;font-weight:800;font-size:18px;line-height:1.15;white-space:nowrap}
+.accent{height:5px;background:linear-gradient(90deg,var(--c) 0 66%,var(--m) 66%)}
+main{max-width:980px;margin:auto;padding:48px 24px 68px}.hero{text-align:center}.hero h1{font-size:40px;margin:0 0 10px}.hero p{margin:0;color:var(--muted);font-size:17px}
+.tabs{display:flex;gap:10px;justify-content:center;margin:28px 0 32px}.tab{border:1px solid var(--line);background:#fff;padding:12px 18px;border-radius:9px;font-weight:800;cursor:pointer}.tab.active{background:var(--c);color:#fff;border-color:var(--c)}
+.panel{max-width:760px;margin:auto;border:1px solid var(--line);border-radius:16px;padding:30px;box-shadow:0 10px 28px rgba(25,45,55,.07)}.hidden{display:none!important}
+.panel h2{margin:0 0 8px}.intro{color:var(--muted);margin:0 0 24px}.field{margin-bottom:16px}label{display:block;font-weight:800;margin-bottom:7px}
+input{width:100%;padding:13px 14px;border:1px solid #ccd8dc;border-radius:8px;font-size:16px}.primary{width:100%;border:0;border-radius:8px;background:var(--c);color:#fff;padding:13px 18px;font-size:16px;font-weight:800;cursor:pointer}
+.secondary{border:1px solid var(--c);background:#fff;color:var(--c);padding:11px 15px;border-radius:8px;font-weight:800;cursor:pointer}.message{display:none;margin-top:16px;padding:12px 14px;border-radius:8px}.message.error{display:block;background:var(--errbg);color:var(--err)}.message.ok{display:block;background:var(--okbg);color:var(--ok)}
+.result{display:none;margin-top:24px;border-top:1px solid var(--line);padding-top:24px}.result.show{display:block}.status{display:inline-block;padding:7px 12px;border-radius:999px;background:var(--okbg);color:var(--ok);font-weight:800;font-size:13px}
+.name{font-size:28px;font-weight:800;color:var(--c);margin:16px 0 5px}.type{font-weight:800;margin-bottom:20px}
+dl{display:grid;grid-template-columns:180px 1fr;border-top:1px solid var(--line)}dt,dd{margin:0;padding:12px 0;border-bottom:1px solid var(--line)}dt{font-weight:800;color:#536169}dd{padding-left:14px}
+.tech{margin-top:22px;background:var(--soft);border-left:4px solid var(--c);padding:18px;border-radius:8px}.tech code{font-size:12px;word-break:break-all}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.note{max-width:760px;margin:26px auto 0;color:var(--muted);font-size:13px;text-align:center;line-height:1.55}.qrhelp{margin-top:18px;background:#f8fbfc;border:1px solid var(--line);padding:14px;border-radius:10px;color:#4c5960;font-size:14px}
 footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:650px){.head img{height:56px} .gov{font-size:11px} h1{font-size:30px} dl{grid-template-columns:1fr} dd{padding-left:0;padding-top:0}}
-</style></head>
+@media(max-width:700px){.head img{height:58px;max-width:68vw}.prov{font-size:11px;padding-left:12px}.hero h1{font-size:31px}.panel{padding:22px}dl{grid-template-columns:1fr}dd{padding-left:0;padding-top:0}}
+</style>
+</head>
 <body>
-<header><div class="head"><img src="logo-puentes.png" alt="Programa Puentes"><div class="gov">PROVINCIA DE BUENOS AIRES<br>Programa Puentes</div></div><div class="accent"></div></header>
+<header><div class="head"><img src="logo-puentes.png" alt="Puentes"><div class="prov">PROVINCIA DE<br>BUENOS AIRES</div></div><div class="accent"></div></header>
 <main>
-<div class="hero"><h1>Credenciales Puentes</h1><p>Accedé, descargá y verificá tus certificados digitales.</p></div>
-<div class="tabs"><button class="tab active" id="a">Mis credenciales</button><button class="tab" id="v">Verificar credencial</button></div>
+<section class="hero"><h1>Credenciales Puentes</h1><p>Accedé, descargá y verificá tus certificados digitales.</p></section>
+<div class="tabs"><button class="tab active" id="tabA">Mis credenciales</button><button class="tab" id="tabV">Verificar credencial</button></div>
 
-<section class="panel" id="pa">
-<h2>Ingresar a mis credenciales</h2><p>Usá el correo declarado y el código personal recibido por mail.</p>
-<label>Correo electrónico</label><input id="email" type="email" placeholder="nombre@institucion.edu.ar">
-<label>Código de acceso</label><input id="code" type="text" placeholder="UTF26-XXXXXX">
-<button class="primary" id="login">Ingresar</button><div id="m1" class="msg"></div><div id="r1" class="result"></div>
+<section class="panel" id="panelA">
+<h2>Ingresar a mis credenciales</h2><p class="intro">Usá el correo declarado y el código personal recibido por mail.</p>
+<div class="field"><label>Correo electrónico</label><input id="email" type="email" placeholder="nombre@institucion.edu.ar"></div>
+<div class="field"><label>Código de acceso</label><input id="code" type="text" placeholder="UTF26-XXXXXX"></div>
+<button class="primary" id="login">Ingresar</button>
+<div id="msgA" class="message"></div><div id="resA" class="result"></div>
 </section>
 
-<section class="panel hidden" id="pv">
-<h2>Verificar credencial</h2><p>Ingresá el ID o accedé desde el QR del certificado.</p>
-<label>ID de credencial</label><input id="cid" type="text" placeholder="PUENTES-UTF26-M1-EPS-001">
-<button class="primary" id="verify">Verificar</button><div id="m2" class="msg"></div><div id="r2" class="result"></div>
+<section class="panel hidden" id="panelV">
+<h2>Verificar credencial</h2><p class="intro">Ingresá el identificador. Si llegaste desde el QR del certificado, la verificación se realiza automáticamente.</p>
+<div class="field"><label>ID de credencial</label><input id="cid" type="text" placeholder="PUENTES-UTF26-M1-EPS-001"></div>
+<button class="primary" id="verify">Verificar</button>
+<div class="qrhelp">El QR del certificado abre esta misma sección mediante una URL con <strong>?id=ID-DE-CREDENCIAL</strong>.</div>
+<div id="msgV" class="message"></div><div id="resV" class="result"></div>
 </section>
+
+<p class="note">La validez institucional del certificado corresponde al Programa Puentes. La verificación criptográfica permite comprobar la integridad y trazabilidad del documento mediante SHA-256 y OpenTimestamps.</p>
 </main>
 <footer>Programa Puentes · Provincia de Buenos Aires</footer>
 
 <script>
-const URLBASE="https://sawigpjsxkqkfffalfyp.supabase.co", KEY="sb_publishable_qiFMVg1d9-rHCYyCtoa57Q_hRlDuYDE";
-async function rpc(fn,body){let r=await fetch(`${URLBASE}/rest/v1/rpc/${fn}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':`Bearer ${KEY}`},body:JSON.stringify(body)}); if(!r.ok) throw new Error(await r.text()); return await r.json();}
-function e(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-function fdate(v){if(!v)return'';let p=v.split('-');return `${p[2]}/${p[1]}/${p[0]}`;}
-function card(c,priv){return `<span class="status">✓ CERTIFICADO VERIFICADO</span><div class="name">${e(c.nombre_completo)}</div><b>${e(c.tipo_certificado)}</b><dl>
-<dt>ID</dt><dd>${e(c.id_certificado)}</dd><dt>Actividad</dt><dd>${e(c.jornada)}</dd><dt>Participación</dt><dd>${e(c.mesa||'')}</dd><dt>Fecha</dt><dd>${fdate(c.fecha_emision)}</dd><dt>Emisor</dt><dd>${e(c.institucion)}</dd><dt>Estado</dt><dd>${e(c.estado)}</dd></dl>
-<div class="tech"><b>Verificación criptográfica</b><br><br>${e(c.sistema_timestamp)} · ${e(c.blockchain)}<br><b>SHA-256</b><br><code>${e(c.sha256)}</code></div>
-${priv?'<p><button disabled>Descargar certificado — se habilita en el próximo paso</button></p>':''}`;}
-function msg(el,t){el.className='msg err';el.textContent=t}
-a.onclick=()=>{a.classList.add('active');v.classList.remove('active');pa.classList.remove('hidden');pv.classList.add('hidden')}; 
-v.onclick=()=>{v.classList.add('active');a.classList.remove('active');pv.classList.remove('hidden');pa.classList.add('hidden')};
-login.onclick=async()=>{r1.classList.remove('show');try{let x=await rpc('buscar_credencial',{p_email:email.value.trim(),p_codigo:code.value.trim()});if(!x.length)return msg(m1,'Correo o código incorrectos.');m1.className='msg';r1.innerHTML=card(x[0],true);r1.classList.add('show')}catch(err){msg(m1,'No se pudo consultar la credencial.');console.error(err)}};
-async function check(id){r2.classList.remove('show');try{let x=await rpc('verificar_credencial',{p_id_certificado:id});if(!x.length)return msg(m2,'No se encontró esa credencial.');m2.className='msg';r2.innerHTML=card(x[0],false);r2.classList.add('show')}catch(err){msg(m2,'No se pudo verificar la credencial.');console.error(err)}}
-verify.onclick=()=>{if(cid.value.trim())check(cid.value.trim())};
-let q=new URLSearchParams(location.search).get('id'); if(q){v.click();cid.value=q;check(q)}
-</script></body></html>
+const SB_URL = "https://sawigpjsxkqkfffalfyp.supabase.co";
+const SB_KEY = "sb_publishable_qiFMVg1d9-rHCYyCtoa57Q_hRlDuYDE";
+const EDGE_URL = "https://sawigpjsxkqkfffalfyp.supabase.co/functions/v1/descargar-certificado";
+let currentEmail="", currentCode="";
+
+async function rpc(fn,body){
+ const r=await fetch(`${SB_URL}/rest/v1/rpc/${fn}`,{method:"POST",headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`},body:JSON.stringify(body)});
+ if(!r.ok) throw new Error(await r.text()); return await r.json();
+}
+async function signedDownload(email,codigo){
+ const r=await fetch(EDGE_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`},body:JSON.stringify({email,codigo})});
+ const p=await r.json().catch(()=>({})); if(!r.ok) throw new Error(p.error||"No se pudo generar la descarga"); return p;
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function fd(v){if(!v)return"";let p=v.split("-");return `${p[2]}/${p[1]}/${p[0]}`}
+function vlink(id){return `${location.origin}${location.pathname}?id=${encodeURIComponent(id)}`}
+function msg(el,t,type){el.className=`message ${type}`;el.textContent=t}
+function clear(el){el.className="message";el.textContent=""}
+function card(c,priv){
+ return `<span class="status">✓ CREDENCIAL VERIFICADA</span><div class="name">${esc(c.nombre_completo)}</div><div class="type">${esc(c.tipo_certificado)}</div>
+ <dl><dt>ID</dt><dd>${esc(c.id_certificado)}</dd><dt>Actividad</dt><dd>${esc(c.jornada)}</dd><dt>Participación</dt><dd>${esc(c.mesa||"")}</dd><dt>Fecha</dt><dd>${fd(c.fecha_emision)}</dd><dt>Emisor</dt><dd>${esc(c.institucion)}</dd><dt>Estado</dt><dd>${esc(c.estado)}</dd></dl>
+ <div class="tech"><strong>Verificación criptográfica</strong><br><br><strong>Sistema:</strong> ${esc(c.sistema_timestamp)} · ${esc(c.blockchain)}<br><strong>SHA-256:</strong><br><code>${esc(c.sha256)}</code></div>
+ <div class="actions">${priv?'<button class="secondary" id="downloadBtn">Descargar certificado</button>':''}<button class="secondary" onclick="copyLink('${esc(c.id_certificado)}')">Copiar enlace de verificación</button>${priv?`<button class="secondary" onclick="window.open('${vlink(c.id_certificado)}','_blank')">Verificar autenticidad</button>`:''}</div>`;
+}
+async function copyLink(id){try{await navigator.clipboard.writeText(vlink(id));alert("Enlace de verificación copiado.")}catch{prompt("Copiá este enlace:",vlink(id))}}
+async function doDownload(){
+ const b=document.getElementById("downloadBtn"); const old=b.textContent; b.disabled=true;b.textContent="Generando descarga...";
+ try{const d=await signedDownload(currentEmail,currentCode); window.location.href=d.download_url}catch(e){alert(e.message)}finally{b.disabled=false;b.textContent=old}
+}
+tabA.onclick=()=>{tabA.classList.add("active");tabV.classList.remove("active");panelA.classList.remove("hidden");panelV.classList.add("hidden")}
+tabV.onclick=()=>{tabV.classList.add("active");tabA.classList.remove("active");panelV.classList.remove("hidden");panelA.classList.add("hidden")}
+login.onclick=async()=>{
+ const e=email.value.trim(), c=code.value.trim(); resA.classList.remove("show");clear(msgA);
+ if(!e||!c)return msg(msgA,"Completá correo electrónico y código de acceso.","error");
+ try{const rows=await rpc("buscar_credencial",{p_email:e,p_codigo:c}); if(!rows.length)return msg(msgA,"El correo o el código no coinciden con una credencial emitida.","error");
+ currentEmail=e;currentCode=c;resA.innerHTML=card(rows[0],true);resA.classList.add("show");document.getElementById("downloadBtn").onclick=doDownload
+ }catch(err){msg(msgA,"No se pudo consultar la credencial.","error")}
+}
+async function verifyId(id){
+ resV.classList.remove("show");clear(msgV);
+ try{const rows=await rpc("verificar_credencial",{p_id_certificado:id}); if(!rows.length)return msg(msgV,"No se encontró una credencial con ese identificador.","error");
+ resV.innerHTML=card(rows[0],false);resV.classList.add("show");msg(msgV,"La credencial fue encontrada y validada en el registro del Programa Puentes.","ok")
+ }catch(err){msg(msgV,"No se pudo realizar la verificación.","error")}
+}
+verify.onclick=()=>{const id=cid.value.trim(); if(!id)return msg(msgV,"Ingresá el ID de la credencial.","error"); verifyId(id)}
+let q=new URLSearchParams(location.search).get("id"); if(q){tabV.click();cid.value=q;verifyId(q)}
+</script>
+</body></html>
